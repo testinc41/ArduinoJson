@@ -53,8 +53,10 @@ class TextFormatter {
     if (specialChar) {
       writeRaw('\\');
       writeRaw(specialChar);
-    } else {
+    } else if (c) {
       writeRaw(c);
+    } else {
+      writeRaw("\\u0000");
     }
   }
 

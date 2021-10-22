@@ -228,18 +228,22 @@ class VariantData {
     setType(VALUE_IS_NULL);
   }
 
-  void setStringPointer(const char *s, storage_policies::store_by_copy) {
+  // TODO: why not use a JsonString for both functions?
+  void setStringPointer(const char *s, size_t n,
+                        storage_policies::store_by_copy) {
     ARDUINOJSON_ASSERT(s != 0);
     setType(VALUE_IS_OWNED_STRING);
     _content.asString.data = s;
-    _content.asString.size = strlen(s);  // TODO
+    _content.asString.size = n;
   }
 
-  void setStringPointer(const char *s, storage_policies::store_by_address) {
+  // TODO: why not use a JsonString for both functions?
+  void setStringPointer(const char *s, size_t n,
+                        storage_policies::store_by_address) {
     ARDUINOJSON_ASSERT(s != 0);
     setType(VALUE_IS_LINKED_STRING);
     _content.asString.data = s;
-    _content.asString.size = strlen(s);  // TODO
+    _content.asString.size = n;
   }
 
   template <typename TAdaptedString>
@@ -348,7 +352,8 @@ class VariantData {
     if (value.isNull())
       setNull();
     else
-      setStringPointer(value.data(), storage_policies::store_by_address());
+      setStringPointer(value.data(), value.size(),
+                       storage_policies::store_by_address());
     return true;
   }
 
@@ -364,7 +369,7 @@ class VariantData {
       setNull();
       return false;
     }
-    setStringPointer(copy, storage_policies::store_by_copy());
+    setStringPointer(copy, value.size(), storage_policies::store_by_copy());
     return true;
   }
 };

@@ -43,12 +43,16 @@ class StringCopier {
     _ptr[_size++] = c;
   }
 
-  bool isValid() {
+  bool isValid() const {
     return _ptr != 0;
   }
 
-  const char* c_str() {
+  const char* c_str() const {
     return _ptr;
+  }
+
+  size_t size() const {
+    return _size;
   }
 
   typedef storage_policies::store_by_copy storage_policy;

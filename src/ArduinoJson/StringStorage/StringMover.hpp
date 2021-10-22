@@ -33,6 +33,10 @@ class StringMover {
     return _startPtr;
   }
 
+  size_t size() const {
+    return size_t(_writePtr - _startPtr);
+  }
+
   typedef storage_policies::store_by_address storage_policy;
 
  private:

@@ -169,7 +169,7 @@ TEST_CASE("DynamicJsonDocument assignment") {
 
     doc2 = doc1;
 
-    REQUIRE_JSON(doc2, "{\"hello\":\"world\"}");
+    REQUIRE_JSON(doc1, "{\"hello\":\"world\"}");
   }
 
   SECTION("Assign from JsonObject") {

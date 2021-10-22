@@ -262,13 +262,13 @@ inline void convertToJson(const ::Printable& src, VariantRef dst) {
   if (!pool || !data)
     return;
   MemoryPoolPrint print(pool);
-  src.printTo(print);
+  size_t n = src.printTo(print);
   if (print.overflowed()) {
     pool->markAsOverflowed();
     data->setNull();
     return;
   }
-  data->setStringPointer(print.c_str(), storage_policies::store_by_copy());
+  data->setStringPointer(print.c_str(), n, storage_policies::store_by_copy());
 }
 
 #endif
